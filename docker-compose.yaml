@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+  redis:
+    image: docker.io/bitnami/redis:6.2
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
+    volumes:
+      - './data/redis:/bitnami/redis/data'
+  apirest:
+    image: apirest
+    build:
+      context: ./RouletteAPI/src
+      dockerfile: Dockerfile
+    environment:
+      - REDIS_URL_PATH=redis
+      - ASPNETCORE_URLS=http://+:80
+    env_file:
+      - 'database.env'
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - '5050:80'
+  postgres:
+    image: 'postgres:latest'
+    restart: always
+    volumes:
+      - './data/postgres_data:/var/lib/postgresql/data'
+    env_file:
+      -  'database.env'
+    ports:
+      - '5432:5432'
