@@ -31,9 +31,9 @@ namespace RoulettesAPI.Persistence.Implementations
             var result = string.Empty;
             try
             {
-                await this._connection.OpenAsync();
-                functionName ??= this._functionName;
-                await using (var command = new NpgsqlCommand($"SELECT {functionName}(@in_data) ", this._connection))
+                await _connection.OpenAsync();
+                functionName ??= _functionName;
+                await using (var command = new NpgsqlCommand($"SELECT {functionName}(@in_data) ", _connection))
                 {
                     command.Parameters.AddWithValue("in_data", NpgsqlDbType.Text, inputObjectStringify);
                     await using (var reader = await command.ExecuteReaderAsync())
@@ -50,20 +50,20 @@ namespace RoulettesAPI.Persistence.Implementations
             }
             finally
             {
-                await this._connection.CloseAsync();
-                this._functionName = string.Empty;
+                await _connection.CloseAsync();
+                _functionName = string.Empty;
             }
         }
 
         public IDbContext WithFunctionName(string functionName)
         {
-            this._functionName = functionName;
+            _functionName = functionName;
             return this;
         }
 
         private string GenerateConnectionString()
         {
-            return $"Host={this._host};Port={this._port};Username={this._username};Password={this._password};Database={this._dbName}";
+            return $"Host={_host};Port={_port};Username={_username};Password={_password};Database={_dbName}";
         }
     }
 }

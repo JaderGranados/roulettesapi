@@ -32,23 +32,31 @@ namespace RoulettesAPI.Managers.Implementations
 
         public bool SignOut(string token)
         {
-            return this._redisClient.Remove(token);
+            return _redisClient.Remove(token);
         }
 
-        public async Task<DefaultResponseDto> SignIn(LoginDto loginDto)
+        public async Task<string> SignIn(LoginDto loginDto)
         {
-            var response = await this._dbContext.
+            var response = await _dbContext.
                 WithFunctionName(_dbLoginFunctionName).
                 ExecuteFunction<DefaultResponseDto>(JsonSerializer.Serialize(loginDto));
-            response.Token = Guid.NewGuid().ToString();
-            
-            return this._redisClient.Set<LoginDto>(response.Token, loginDto) ? 
-                response : throw new Exception(message: "Error al procesar su solicitud");
+            var token = Guid.NewGuid().ToString();
+
+            return _redisClient.Set<string>(key: token, redisObject: response.Token) ? 
+                token : throw new Exception(message: "Error al procesar su solicitud");
         }
 
         public bool IsAuthorized(string token)
         {
-            return !string.IsNullOrEmpty(this._redisClient.Get<string>(key: token));
+            return string.IsNullOrEmpty(token) ? false : 
+                !string.IsNullOrEmpty(_redisClient.Get<string>(key: token));
+        }
+
+        public string GetSession(string token)
+        {
+            return !string.IsNullOrEmpty(token) ? 
+                _redisClient.Get<string>(token) :
+                throw new Exception(message: "Debe enviar un token de verificación");
         }
     }
 }

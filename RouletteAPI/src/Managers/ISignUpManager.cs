@@ -5,12 +5,14 @@ namespace RoulettesAPI.Managers
 {
     public interface ISignUpManager
     {
-        Task<DefaultResponseDto> SignIn(LoginDto loginDto);
+        Task<string> SignIn(LoginDto loginDto);
 
         bool SignOut(string token);
 
         Task<DefaultResponseDto> SignUp(CreateUserDto createUserDto);
 
         bool IsAuthorized(string token);
+
+        string GetSession(string token);
     }
 }

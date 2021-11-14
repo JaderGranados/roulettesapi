@@ -4,11 +4,12 @@ using RoulettesAPI.Dtos;
 using RoulettesAPI.Managers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RoulettesAPI.Extensions;
 
 namespace RoulettesAPI.Controllers
 {
     [ApiController]
-    [Route("roulette/api/[controller]")]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly ISignUpManager _signUpManager;
@@ -23,10 +24,9 @@ namespace RoulettesAPI.Controllers
         {
             try
             {
-                var signUpResponse = await this._signUpManager.SignIn(loginDto);
+                var signUpResponse = await _signUpManager.SignIn(loginDto);
 
-                return signUpResponse.Success ? Ok(signUpResponse) :
-                    BadRequest(signUpResponse);
+                return Ok(signUpResponse);
             }
             catch (Exception e)
             {
@@ -39,13 +39,13 @@ namespace RoulettesAPI.Controllers
         [HttpGet("signout")]
         public ActionResult LogOut()
         {
-            var token = GetAuthorization();
+            var token = this.GetAuthorization();
             if (string.IsNullOrEmpty(token))
             {
                 return StatusCode(StatusCodes.Status403Forbidden);
             }
             
-            return this._signUpManager.SignOut(token: token) ? 
+            return _signUpManager.SignOut(token: token) ? 
                 NoContent() : 
                 Unauthorized();
         }
@@ -63,11 +63,6 @@ namespace RoulettesAPI.Controllers
             {
                 return BadRequest(e.Message);
             }
-        }
-
-        private string GetAuthorization()
-        {
-            return Request.Headers["Authorization"];
         }
     }
 }

@@ -33,10 +33,10 @@ namespace RoulettesAPI.Persistence.Implementations
         public bool Set<T>(string key, T redisObject, DateTime? timeOut = null)
         {
             timeOut ??= DateTime.Now.AddMinutes(5);
-
             using (var redisClient = _redisManager.GetClient())
             {
                 redisClient.Set<T>(key, redisObject, timeOut.Value);
+                
                 return redisClient.Get<object>(key) != null;
             }
         }

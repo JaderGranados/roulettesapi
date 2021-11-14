@@ -28,6 +28,7 @@ namespace RoulettesAPI
             services.AddScoped<IDbContext, DbContext>();
             services.AddScoped<IRedisClient, RedisClient>();
             services.AddScoped<ISignUpManager, SignUpManager>();
+            services.AddScoped<IRoulettesManager, RoulettesManager>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
