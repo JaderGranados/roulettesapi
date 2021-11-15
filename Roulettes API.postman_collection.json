@@ -45,7 +45,56 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{requestBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}auth/signin",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 15 Nov 2021 03:07:26 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "8e22b208-7802-4c0f-8cdb-0fd586d9cac6"
+				}
+			]
 		},
 		{
 			"name": "Logout",
@@ -68,7 +117,45 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "e0a95e4b-b9ad-4279-9f05-371a7c34144a",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}auth/signout",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"signout"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 14 Nov 2021 22:29:15 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
 		},
 		{
 			"name": "Create user",
@@ -113,7 +200,60 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{requestBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}auth/signup",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 14 Nov 2021 23:46:27 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Location",
+							"value": "http://localhost:5050/api/Auth/signin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Usuario creado satisfactoriamente\",\n    \"success\": true,\n    \"token\": null\n}"
+				}
+			]
 		},
 		{
 			"name": "Create roulette",
@@ -123,7 +263,7 @@
 					"script": {
 						"exec": [
 							"var requestBody = {\r",
-							"    \"name\": \"Ruleta 3\"\r",
+							"    \"name\": \"Ruleta 4\"\r",
 							"};\r",
 							"\r",
 							"pm.collectionVariables.set('requestBody', JSON.stringify(requestBody));"
@@ -137,7 +277,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "43408d50-5961-4e39-9de4-f1bab79ceb32",
+						"value": "5fcc4784-8576-427a-a85b-50e22f3de052",
 						"type": "text"
 					}
 				],
@@ -157,7 +297,59 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "5fcc4784-8576-427a-a85b-50e22f3de052",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{requestBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}roulettes",
+							"host": [
+								"{{url}}roulettes"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 15 Nov 2021 11:49:16 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "042d1a19-29dc-45ed-9a99-29214f646ec1"
+				}
+			]
 		},
 		{
 			"name": "Open roulette",
@@ -181,7 +373,54 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "79838db1-2785-4df7-a6f0-c25523117168",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}roulettes/open/6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb",
+							"host": [
+								"{{url}}roulettes"
+							],
+							"path": [
+								"open",
+								"6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 15 Nov 2021 02:57:19 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "true"
+				}
+			]
 		},
 		{
 			"name": "Bet",
@@ -231,7 +470,63 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "c33f1e07-ef65-4454-8b01-b109413da09f",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{requestBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}roulettes/bet/6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb",
+							"host": [
+								"{{url}}roulettes"
+							],
+							"path": [
+								"bet",
+								"6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 15 Nov 2021 03:01:11 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Apuesta realizada con éxito\",\n    \"success\": true,\n    \"token\": \"6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Close roulette",
@@ -255,7 +550,54 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "c33f1e07-ef65-4454-8b01-b109413da09f",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}roulettes/close/6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb",
+							"host": [
+								"{{url}}roulettes"
+							],
+							"path": [
+								"close",
+								"6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 15 Nov 2021 03:04:00 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"roulette_id\": \"6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb\",\n    \"name\": \"Ruleta 2\",\n    \"opening_date\": \"2021-11-15T02:57:20.101988\",\n    \"closing_date\": \"2021-11-15T03:04:00.603248\",\n    \"winner_number\": 7,\n    \"bets\": [\n        {\n            \"user\": \"Jader\",\n            \"value\": 35,\n            \"amount\": 200,\n            \"is_winner\": true,\n            \"bet_type\": \"Color\"\n        }\n    ]\n}"
+				}
+			]
 		},
 		{
 			"name": "Get roulettes",
@@ -280,7 +622,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "c33f1e07-ef65-4454-8b01-b109413da09f",
+						"value": "8e22b208-7802-4c0f-8cdb-0fd586d9cac6",
 						"type": "text"
 					}
 				],
@@ -303,7 +645,62 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "8e22b208-7802-4c0f-8cdb-0fd586d9cac6",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{requestBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}roulettes/list",
+							"host": [
+								"{{url}}roulettes"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 15 Nov 2021 03:07:38 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"current_page\": 1,\n    \"items_per_page\": 5,\n    \"total_items\": 3,\n    \"items\": [\n        {\n            \"roulette_id\": \"3f9d6b42-7d5a-4b69-b23c-41ce10874d75\",\n            \"name\": \"Ruleta 1\",\n            \"status\": \"Cerrada\",\n            \"last_turn_number\": 1,\n            \"created_date\": \"2021-11-11T00:00:00\"\n        },\n        {\n            \"roulette_id\": \"108711f2-3f54-4da0-9238-580f893cc8bf\",\n            \"name\": \"Ruleta 3\",\n            \"status\": \"Cerrada\",\n            \"last_turn_number\": null,\n            \"created_date\": \"2021-11-12T00:00:00\"\n        },\n        {\n            \"roulette_id\": \"6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb\",\n            \"name\": \"Ruleta 2\",\n            \"status\": \"Cerrada\",\n            \"last_turn_number\": 2,\n            \"created_date\": \"2021-11-12T00:00:00\"\n        }\n    ]\n}"
+				}
+			]
 		}
 	],
 	"event": [
