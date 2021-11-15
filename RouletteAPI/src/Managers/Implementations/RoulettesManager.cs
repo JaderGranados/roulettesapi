@@ -13,26 +13,50 @@ namespace RoulettesAPI.Managers.Implementations
         private readonly string _dbCreateRouletteFunctionName;
         private readonly string _dbOpenRouletteFunctionName;
         private readonly string _dbCreateRouletteBetFunctionName;
+        private readonly string _dbCloseRouletteFunctionName;
+        private readonly string _dbGetRoulettesFunctionName;
+
         public RoulettesManager(IDbContext dbContext)
         {
             _dbContext = dbContext;
             _dbCreateRouletteFunctionName = "bets.sp_create_roulette";
             _dbOpenRouletteFunctionName = "bets.sp_open_roulette";
             _dbCreateRouletteBetFunctionName = "bets.sp_bet";
+            _dbCloseRouletteFunctionName = "bets.sp_close_roulette";
+            _dbGetRoulettesFunctionName = "bets.sp_get_roulettes";
         }
 
-        public async Task<DefaultResponseDto> Bet(CreateRouletteBetDto createRouletteBetDto)
+        public async Task<DefaultResponseDto> BetOnRoulette(CreateRouletteBetDto createRouletteBetDto)
         {
             return await _dbContext
                 .WithFunctionName(_dbCreateRouletteBetFunctionName)
                 .ExecuteFunction<DefaultResponseDto>(JsonSerializer.Serialize(createRouletteBetDto));
         }
 
-        public async Task<DefaultResponseDto> Create(CreateRouletteDto createRouletteDto)
+        public async Task<CloseRouletteDto> CloseRoulette(string rouletteId)
+        {
+            var request = new RouletteFiltersDto
+            {
+                RouletteId = rouletteId
+            };
+
+            return await _dbContext
+                .WithFunctionName(_dbCloseRouletteFunctionName)
+                .ExecuteFunction<CloseRouletteDto>(JsonSerializer.Serialize(request));
+        }
+
+        public async Task<DefaultResponseDto> CreateRoulette(CreateRouletteDto createRouletteDto)
         {
             return await _dbContext
                 .WithFunctionName(_dbCreateRouletteFunctionName)
                 .ExecuteFunction<DefaultResponseDto>(JsonSerializer.Serialize(createRouletteDto));
+        }
+
+        public async Task<PaginatedRoulettesListDto> GetRoulettes(RouletteFiltersDto rouletteFiltersDto)
+        {
+            return await _dbContext
+                .WithFunctionName(_dbGetRoulettesFunctionName)
+                .ExecuteFunction<PaginatedRoulettesListDto>(JsonSerializer.Serialize(rouletteFiltersDto));
         }
 
         public async Task<bool> OpenRoulette(string rouletteId)

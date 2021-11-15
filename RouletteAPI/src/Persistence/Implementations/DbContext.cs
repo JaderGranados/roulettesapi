@@ -40,6 +40,7 @@ namespace RoulettesAPI.Persistence.Implementations
                     {
                         await reader.ReadAsync();
                         result = reader.GetString(0);
+                        Console.WriteLine(result);
                     }
                 }
                 return JsonSerializer.Deserialize<T>(result);

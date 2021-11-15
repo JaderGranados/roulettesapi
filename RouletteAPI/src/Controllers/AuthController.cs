@@ -30,9 +30,7 @@ namespace RoulettesAPI.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-
-                return Problem("Error en la consulta", statusCode: 500);
+                return BadRequest(e.Message);
             }
         }
 

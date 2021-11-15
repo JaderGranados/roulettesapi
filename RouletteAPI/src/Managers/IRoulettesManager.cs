@@ -5,10 +5,14 @@ namespace RoulettesAPI.Managers
 {
     public interface IRoulettesManager
     {
-        Task<DefaultResponseDto> Create(CreateRouletteDto createRouletteDto);
+        Task<DefaultResponseDto> CreateRoulette(CreateRouletteDto createRouletteDto);
 
         Task<bool> OpenRoulette(string rouletteId);
 
-        Task<DefaultResponseDto> Bet(CreateRouletteBetDto createRouletteBetDto);
+        Task<DefaultResponseDto> BetOnRoulette(CreateRouletteBetDto createRouletteBetDto);
+
+        Task<CloseRouletteDto> CloseRoulette(string rouletteId);
+
+        Task<PaginatedRoulettesListDto> GetRoulettes(RouletteFiltersDto rouletteFiltersDto);
     }
 }

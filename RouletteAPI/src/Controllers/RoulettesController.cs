@@ -27,7 +27,7 @@ namespace RoulettesAPI.Controllers
             {
                 var token = this.GetAuthorization();
                 var response = _signUpManager.IsAuthorized(token) ? 
-                    (await _rouletteManager.Create(readRouletteDto)) : 
+                    (await _rouletteManager.CreateRoulette(readRouletteDto)) : 
                     throw new UnauthorizedAccessException(message: "Sin autorización");
 
                 return response.Success ? Ok(response.Token) : throw new Exception(message: response.Message);
@@ -74,7 +74,51 @@ namespace RoulettesAPI.Controllers
                 createRouletteBetDto.UserId = userId;
                 createRouletteBetDto.RouletteId ??= id;
                 var response = _signUpManager.IsAuthorized(token) ? 
-                    (await _rouletteManager.Bet(createRouletteBetDto)) : 
+                    (await _rouletteManager.BetOnRoulette(createRouletteBetDto)) : 
+                    throw new UnauthorizedAccessException(message: "Sin autorización");
+
+                return Ok(response);
+            }
+            catch(UnauthorizedAccessException e)
+            {
+                return Unauthorized(e.Message);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("close/{id}")]
+        public async Task<ActionResult<bool>> Close(string id)
+        {
+            try
+            {
+                var token = this.GetAuthorization();
+                var response = _signUpManager.IsAuthorized(token) ? 
+                    (await _rouletteManager.CloseRoulette(id)) : 
+                    throw new UnauthorizedAccessException(message: "Sin autorización");
+
+                return Ok(response);
+            }
+            catch(UnauthorizedAccessException e)
+            {
+                return Unauthorized(e.Message);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("list")]
+        public async Task<ActionResult<PaginatedRoulettesListDto>> GetRoulettes([FromBody] RouletteFiltersDto rouletteFiltersDto)
+        {
+            try
+            {
+                var token = this.GetAuthorization();
+                var response = _signUpManager.IsAuthorized(token) ? 
+                    (await _rouletteManager.GetRoulettes(rouletteFiltersDto)) : 
                     throw new UnauthorizedAccessException(message: "Sin autorización");
 
                 return Ok(response);

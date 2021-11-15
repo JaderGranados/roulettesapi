@@ -43,7 +43,7 @@ namespace RoulettesAPI.Managers.Implementations
             var token = Guid.NewGuid().ToString();
 
             return _redisClient.Set<string>(key: token, redisObject: response.Token) ? 
-                token : throw new Exception(message: "Error al procesar su solicitud");
+                token : throw new Exception(message: response.Message);
         }
 
         public bool IsAuthorized(string token)
