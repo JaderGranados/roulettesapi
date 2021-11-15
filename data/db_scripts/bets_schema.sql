@@ -169,7 +169,8 @@ BEGIN
 	last_turn := (SELECT t.turn_id 
 		FROM	bets.turns t
 		WHERE	t.game_id = roulette_bet.roulette_id
-		ORDER BY t.opening_date DESC);
+		ORDER BY t.opening_date DESC
+		LIMIT	1);
 	
 	max_bet_amount_exceded := COALESCE((SELECT t.max_amount - t."sum"
 		FROM  (
@@ -214,6 +215,7 @@ BEGIN
 END;
 $function$
 ;
+
 
 CREATE OR REPLACE FUNCTION bets.sp_close_roulette(in_data text)
  RETURNS text
@@ -275,11 +277,11 @@ BEGIN
 				random_number AS winner_number
 		FROM 	bets.roulettes r 
 			LEFT JOIN (SELECT DISTINCT ON(t.game_id) * FROM bets.turns t ORDER BY t.game_id, t.opening_date DESC) t ON t.game_id = r.roulette_id
-			LEFT JOIN bets.roulette_bets rb USING (roulette_id)
+			LEFT JOIN bets.roulette_bets rb ON (rb.roulette_id = r.roulette_id AND t.turn_id = rb.turn_id)
 			LEFT JOIN signup.users u ON u.user_id = rb.user_id
 			LEFT JOIN bets.bet_type bt ON bt.bet_type_id = rb.bet_type_id 
 		WHERE 	r.roulette_id = filters.roulette_id
-		GROUP BY roulette_id, "name", opening_date, closing_date 
+		GROUP BY r.roulette_id, "name", opening_date, closing_date
 	)
 	SELECT	*
 	INTO	out_data
@@ -289,6 +291,7 @@ BEGIN
 END;
 $function$
 ;
+
 
 CREATE OR REPLACE FUNCTION bets.sp_create_roulette(in_data text)
  RETURNS text
@@ -343,7 +346,7 @@ BEGIN
 				r.created_date
 		FROM 	bets.roulettes r 
 			LEFT JOIN bets.roulette_status_type rst ON rst.roulette_status_type_id = r.roulette_status_type_id 
-			LEFT JOIN (SELECT DISTINCT ON (t.turn_id) * FROM bets.turns t ORDER BY t.turn_id, t.opening_date DESC) t ON t.game_id = r.roulette_id 
+			LEFT JOIN (SELECT DISTINCT ON (t.game_id) * FROM bets.turns t ORDER BY t.game_id, t.opening_date DESC) t ON t.game_id = r.roulette_id 
 			LEFT JOIN bets.roulette_bets rb ON rb.turn_id = t.turn_id
 		WHERE 	(r.roulette_id = filters.roulette_id OR filters.roulette_id IS NULL)
 			AND	(r.roulette_status_type_id = filters.status_id OR filters.status_id IS NULL)
@@ -366,6 +369,7 @@ BEGIN
 END;
 $function$
 ;
+
 
 CREATE OR REPLACE FUNCTION bets.sp_open_roulette(in_data text)
  RETURNS text

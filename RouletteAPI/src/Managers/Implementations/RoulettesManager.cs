@@ -1,4 +1,3 @@
-using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using RoulettesAPI.Dtos;
@@ -69,7 +68,6 @@ namespace RoulettesAPI.Managers.Implementations
             var response = await _dbContext
                 .WithFunctionName(_dbOpenRouletteFunctionName)
                 .ExecuteFunction<DefaultResponseDto>(JsonSerializer.Serialize(request));
-            Console.WriteLine(response.Message);
 
             return response.Success;
         }
