@@ -52,7 +52,10 @@ _For running this app you just need to follow the next steps._
    ```sh
    docker-compose up --build
    ```
-   
+ 
+In adition, postman collection file was added.
+
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
