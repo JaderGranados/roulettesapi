@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "bf856c8f-b297-4aa0-8dd2-84091f8e9d8d",
+		"name": "Roulettes API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var request = {\r",
+							"    user_name: \"jader.granados\",\r",
+							"    password: \"admin234\"\r",
+							"};\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestBody\", JSON.stringify(request));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestBody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}auth/signin",
+					"host": [
+						"{{url}}auth"
+					],
+					"path": [
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "e0a95e4b-b9ad-4279-9f05-371a7c34144a",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}auth/signout",
+					"host": [
+						"{{url}}auth"
+					],
+					"path": [
+						"signout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var requestBody = {\r",
+							"    names: \"Jader\",\r",
+							"    last_names: \"Granados\",\r",
+							"    user_name: \"jader.granados\",\r",
+							"    password: \"admin234\",\r",
+							"    birthdate: new Date(\"1991-12-19 00:00\").toISOString()\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestBody\", JSON.stringify(requestBody));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestBody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}auth/signup",
+					"host": [
+						"{{url}}auth"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create roulette",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var requestBody = {\r",
+							"    \"name\": \"Ruleta 3\"\r",
+							"};\r",
+							"\r",
+							"pm.collectionVariables.set('requestBody', JSON.stringify(requestBody));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "43408d50-5961-4e39-9de4-f1bab79ceb32",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestBody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}roulettes",
+					"host": [
+						"{{url}}roulettes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Open roulette",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "79838db1-2785-4df7-a6f0-c25523117168",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}roulettes/open/6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb",
+					"host": [
+						"{{url}}roulettes"
+					],
+					"path": [
+						"open",
+						"6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bet",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var requestBody = {\r",
+							"    amount: 200,\r",
+							"    value: 35,\r",
+							"    bet_type_id: 2\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestBody\", JSON.stringify(requestBody));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "c33f1e07-ef65-4454-8b01-b109413da09f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestBody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}roulettes/bet/6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb",
+					"host": [
+						"{{url}}roulettes"
+					],
+					"path": [
+						"bet",
+						"6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Close roulette",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "c33f1e07-ef65-4454-8b01-b109413da09f",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}roulettes/close/6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb",
+					"host": [
+						"{{url}}roulettes"
+					],
+					"path": [
+						"close",
+						"6ee7d2ab-91c5-4f12-b16f-81772ea3f9fb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get roulettes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var requestBody = {\r",
+							"    items_per_page: 5,\r",
+							"    current_page: 1\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set('requestBody', JSON.stringify(requestBody));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "c33f1e07-ef65-4454-8b01-b109413da09f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestBody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}roulettes/list",
+					"host": [
+						"{{url}}roulettes"
+					],
+					"path": [
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:5050/roulette/api/"
+		},
+		{
+			"key": "auth",
+			"value": ""
+		},
+		{
+			"key": "requestBody",
+			"value": ""
+		}
+	]
+}
